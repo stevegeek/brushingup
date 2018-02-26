@@ -9,7 +9,8 @@
   "author": "Stephen Ierodiaconou",
   "license": "ISC",
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": ["<rootDir>/templates"]
   },
   "dependencies": {
     "jest": "^22.3.0"

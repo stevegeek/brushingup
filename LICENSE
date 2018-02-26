@@ -1,25 +1,3 @@
-Coding practice
-===============
-
-This repo contains code implementing solutions to hackerrank, Cracking the Coding
-Interview etc problems, and standard data structures and algorithms.
-
-Just retaining my work for my own future reference really.
-
-Some solutions/implementations contain some discussion in comments, others not.
-
-Many solutions will be work in progress, waiting for me to come back and think
-of more optimal solutions (at least from an asymptotic complexity order point of
-view).
-
-All should have at least a minimum set of Jest tests.
-
-Requires a relatively recent version of JavaScript interpreter as using ES6+
-language features generally.
-
-License
--------
-
 This is free and unencumbered software released into the public domain.
 
 Anyone is free to copy, modify, publish, use, compile, sell, or
