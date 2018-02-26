@@ -17,6 +17,15 @@ All should have at least a minimum set of Jest tests.
 Requires a relatively recent version of JavaScript interpreter as using ES6+
 language features generally.
 
+Some Links
+----------
+
+- [6.006 Introduction to Algorithms - MIT](https://www.youtube.com/watch?v=HtSuA80QTyo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb)
+- [Graph Theory - Monmouth University](https://www.youtube.com/watch?v=ihQVHzTUJ6U)
+- [Data Structure Visualizations](http://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
+- https://www.hackerrank.com
+
+
 License
 -------
 

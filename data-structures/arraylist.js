@@ -14,6 +14,9 @@
 // cases you need to factor in initialising it as O(n)
 
 
+// TODO: implementation which is array like (use proxies to allow array-like
+// index referencing)?
+
 // Note this implementation is *not* Array-like
 class ArrayList {
   constructor(data = []) {
