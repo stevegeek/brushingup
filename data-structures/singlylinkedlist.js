@@ -38,6 +38,10 @@ class List {
     values.forEach((v) => {
       this.append(v);
     });
+
+    // Ensure if you concat() a list it actually spreads like [...list] and thus
+    // is flattened
+    this[Symbol.isConcatSpreadable] = true;
   }
 
   /**

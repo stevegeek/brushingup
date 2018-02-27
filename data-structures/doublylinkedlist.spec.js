@@ -47,6 +47,10 @@ describe('List', () => {
     expect(list.last).toBe(3);
   });
 
+  it('should be iterable', () => {
+    expect(Array.from(list).map(c => c[0].val)).toEqual([1, 2, 3]);
+  });
+
   it('should reduce left', () => {
     expect(list.reduce((acc, x) => acc + x)).toBe(6);
     expect(list.reduce((acc, x) => acc + x, 2)).toBe(8);
