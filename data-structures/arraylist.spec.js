@@ -32,10 +32,52 @@ describe('ArrayList', () => {
     expect(list.set(1, 100).get(1)).toBe(100);
   });
 
+  it('should push into', () => {
+    expect(list.push(100).get(0)).toBe(100);
+  });
+
+  it('should add into', () => {
+    expect(list.add(100, 1).get(1)).toBe(100);
+    expect(list.size).toBe(initData.length + 1);
+  });
+
+  it('should not allow adding beyond bounds', () => {
+    expect(() => list.add(100, 5)).toThrow();
+  });
+
+  it('should remove from', () => {
+    expect(list.removeAt(1).get(1)).toBe(3);
+    expect(list.size).toBe(initData.length - 1);
+  });
+
+  it('should not allow removing beyond bounds', () => {
+    expect(() => list.removeAt(5)).toThrow();
+  });
+
+  it('should handle not finding removed value', () => {
+    expect(list.remove(100).size).toBe(initData.length);
+  });
+
+  it('should pop off', () => {
+    expect(list.pop()).toBe(1);
+    expect(list.get(0)).toBe(2);
+  });
+
   it('should grow when needed', () => {
     for (let i = 0; i < 10; i++) {
-      expect(list.push(i + 100).size).toBe(initData.length + i + 1);
+      expect(list.add(i + 100).size).toBe(initData.length + i + 1);
       expect(list.get(initData.length + i)).toBe(i + 100);
     }
+  });
+
+  it('should shrink when needed', () => {
+    for (let i = 0; i < 10; i++) {
+      list.add(i + 100);
+    }
+    for (let i = 1; i < 10; i++) {
+      expect(list.remove(i + 99).size).toBe(10 + initData.length - i);
+      expect(list.get(initData.length)).toBe(i + 100);
+    }
+    expect(list.remove(109).size).toBe(initData.length);
   });
 });
