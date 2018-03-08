@@ -140,8 +140,7 @@ class BinaryTree {
    */
   insert(v) {
     if (!this.root) {
-      this.root = new Node(v);
-      return this.root;
+      return this._setRoot(new Node(v));
     }
     return this._find(
       this.root,
@@ -205,13 +204,12 @@ class BinaryTree {
           n.parent.addLeft(n.right);
         } else {
           // At root so rewire it
-          delete succ.parent;
-          this.root = succ;
+          this._setRoot(succ);
         }
         return true;
       }
 
-      delete this.root;
+      this._setRoot();
       return true;
     });
   }
@@ -228,6 +226,14 @@ class BinaryTree {
   }
 
   // 'private'
+
+  _setRoot(n) {
+    if (n) {
+      n.parent = undefined;
+    }
+    this.root = n;
+    return n;
+  }
 
   // recursive find
   _find(curNode, v, found = n => n, notFoundLeft = () => undefined, notFoundRight = () => undefined) {
