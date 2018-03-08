@@ -87,4 +87,11 @@ describe('ArrayList', () => {
     }
     expect(list.remove(109).size).toBe(initData.length);
   });
+
+  it('should allow array like access through proxy', () => {
+    expect(list[0]).toBe(1);
+    expect(list[2]).toBe(3);
+    list[1] = 200;
+    expect(list.get(1)).toBe(200);
+  });
 });

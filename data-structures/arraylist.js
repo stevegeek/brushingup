@@ -15,8 +15,8 @@
 
 // This implementation follows a Java ArrayList like interface
 
-// TODO: implementation which is array like (use proxies to allow array-like
-// index referencing)?
+// Note the exported object is actually a contructor which creates an ArrayList
+// with a Proxy around it, for a little experiment with proxies
 
 // Note this implementation is *not* Array-like
 class ArrayList {
@@ -166,7 +166,6 @@ class ArrayList {
       return;
     }
 
-
     // shift array
     for (let i = this.size; i >= startIndex; i--) {
       this.data[i] = this.data[i - 1];
@@ -277,4 +276,33 @@ class ArrayList {
   }
 }
 
-module.exports = ArrayList;
+const isANumber = /^[0-9]$/;
+
+/**
+ * A constructor function which wraps a proxy around an instance of a arraylist
+ *
+ * This is a little experiment to play with Proxies, obviously checking the prop
+ * string is a number for example adds computation load to using the list
+ *
+ * @param args
+ * @returns {*}
+ * @constructor
+ */
+function ProxiedArray(...args) {
+  return new Proxy(new ArrayList(...args), {
+    get(target, prop, receiver) {
+      if (prop.length && prop.match(isANumber)) {
+        return target.get(parseInt(prop, 10));
+      }
+      return Reflect.get(...arguments);
+    },
+    set(target, prop, value, receiver) {
+      if (prop.length && prop.match(isANumber)) {
+        return target.set(parseInt(prop, 10), value);
+      }
+      return Reflect.set(...arguments);
+    }
+  });
+}
+
+module.exports = ProxiedArray;
