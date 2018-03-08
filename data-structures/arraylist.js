@@ -19,9 +19,8 @@
 // index referencing)?
 
 // Note this implementation is *not* Array-like
-class ArrayList extends Array {
+class ArrayList {
   constructor(data = []) {
-    super();
     // Pre allocate twice as much storage
     this._init(data);
   }
