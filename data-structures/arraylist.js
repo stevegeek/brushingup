@@ -120,6 +120,10 @@ class ArrayList {
     return this.count;
   }
 
+  get length() {
+    return this.count;
+  }
+
   /**
    * Iterator for array
    * @returns {IterableIterator<*[]>}
@@ -131,7 +135,7 @@ class ArrayList {
   }
 
   toString() {
-    return '[' + this.map((v, i) => `${v} (${i})`).join(', ') + ']';
+    return '[' + Array.prototype.map(this, (v, i) => `${v} (${i})`).join(', ') + ']';
   }
 
   // 'private'
@@ -160,6 +164,12 @@ class ArrayList {
       const startSize = typeof endIndex === 'undefined' ? data.length : endIndex;
       this._createNewArray(data, startSize, startIndex, insertValue);
       return;
+    }
+
+
+    // shift array
+    for (let i = this.size; i >= startIndex; i--) {
+      this.data[i] = this.data[i - 1];
     }
 
     // ... otherwise we can just insert in O(1)

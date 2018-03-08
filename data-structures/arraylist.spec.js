@@ -39,6 +39,8 @@ describe('ArrayList', () => {
 
   it('should push into', () => {
     expect(list.push(100).get(0)).toBe(100);
+    expect(list.push(101).get(0)).toBe(101);
+    expect(list.get(1)).toBe(100);
   });
 
   it('should add into', () => {
