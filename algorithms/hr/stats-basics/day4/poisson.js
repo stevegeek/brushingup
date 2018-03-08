@@ -16,7 +16,7 @@ function factorial(n) {
 
 
 function compute([[avg], [k]]) {
-  const p = (Math.pow(avg, k) * Math.pow(Math.E, -1.0 * avg)) / factorial(k);
+  const p = ((avg ** k) * Math.exp(-1.0 * avg)) / factorial(k);
   return rounding(p, 3);
 }
 
@@ -37,7 +37,7 @@ function parseAndCompute(input) {
 }
 
 function rounding(num, dp = 1) {
-  const f = Math.pow(10, dp);
+  const f = 10 ** dp;
   return Math.round(num * f) / f;
 }
 

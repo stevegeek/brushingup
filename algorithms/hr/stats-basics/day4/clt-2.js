@@ -4,11 +4,11 @@ function normFactor(sigma) {
 }
 
 function distributionExp(x, mu, sigma) {
-  return -1.0 * Math.pow(x - mu, 2) / (2.0 * Math.pow(sigma, 2));
+  return -1.0 * ((x - mu) ** 2) / (2.0 * (sigma ** 2));
 }
 
 function pdf(x, mu, sigma) {
-  return normFactor(sigma) * Math.pow(Math.E, distributionExp(x, mu, sigma));
+  return normFactor(sigma) * Math.exp(distributionExp(x, mu, sigma));
 }
 
 function erf(z) {
@@ -23,7 +23,7 @@ function erf(z) {
   const step = z1 / 10000.0;
   let x = step;
   while(x < z1) {
-    const y = Math.pow(Math.E, -1.0 * x * x);
+    const y = Math.exp(-1.0 * x * x);
     area += y * step;
     x += step;
   }
@@ -63,7 +63,7 @@ function parseAndCompute(input) {
 }
 
 function rounding(num, dp = 1) {
-  const f = Math.pow(10, dp);
+  const f = (10 ** dp);
   return Math.round(num * f) / f;
 }
 

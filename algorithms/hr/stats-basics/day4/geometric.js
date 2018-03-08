@@ -1,6 +1,6 @@
 
 function geometric(n, p) {
-  return Math.pow(1.0 - p, n - 1) * p;
+  return ((1.0 - p) ** (n - 1)) * p;
 }
 
 function compute([ratio, n]) {
@@ -25,7 +25,7 @@ function parseAndCompute(input) {
 }
 
 function rounding(num, dp = 1) {
-  const f = Math.pow(10, dp);
+  const f = 10 ** dp;
   return Math.round(num * f) / f;
 }
 

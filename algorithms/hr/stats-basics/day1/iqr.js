@@ -66,7 +66,7 @@ function zipInputs(inputs) {
 }
 
 function rounding(num, dp = 1) {
-  const f = Math.pow(10, dp);
+  const f = 10 ** dp;
   return Math.round(num * f) / f;
 }
 

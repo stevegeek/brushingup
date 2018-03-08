@@ -11,7 +11,7 @@
 
 function compute(data) {
   const mean = data.reduce((s, x) => s + x, 0) / data.length;
-  const sum = data.reduce((s, x) => s + Math.pow((x - mean), 2), 0);
+  const sum = data.reduce((s, x) => s + ((x - mean) ** 2), 0);
   return rounding(Math.sqrt(sum / data.length - 1));
 }
 
@@ -39,7 +39,7 @@ function zipInputs(inputs) {
 }
 
 function rounding(num, dp = 1) {
-  const f = Math.pow(10, dp);
+  const f = 10 ** dp;
   return Math.round(num * f) / f;
 }
 

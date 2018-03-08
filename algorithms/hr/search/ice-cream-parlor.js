@@ -79,7 +79,7 @@ function parseAndCompute(input) {
 const PRECISION = 0;
 
 function rounding(num, dp = PRECISION) {
-  const f = Math.pow(10, dp);
+  const f = 10 ** dp;
   return Math.round(num * f) / f;
 }
 

@@ -5,8 +5,8 @@ function conv(X, Y) {
   const [meanX, meanY] = X.reduce((s, x, i) => [s[0] + x, s[1] + Y[i]], [0.0, 0.0]).map(s => s / n);
   const [sX, sY, sum] = X.reduce((s, x, i) =>
     [
-      s[0] + Math.pow((x - meanX), 2),
-      s[1] + Math.pow((Y[i] - meanY), 2),
+      s[0] + ((x - meanX) ** 2),
+      s[1] + ((Y[i] - meanY) ** 2),
       s[2] + ((x - meanX) * (Y[i] - meanY))
     ],
     [0.0, 0.0, 0.0]
@@ -38,7 +38,7 @@ function parseAndCompute(input) {
 }
 
 function rounding(num, dp = PRECISION) {
-  const f = Math.pow(10, dp);
+  const f = 10 ** dp;
   return Math.round(num * f) / f;
 }
 

@@ -25,7 +25,7 @@ function combinations(n, x) {
 }
 
 function binom(x, n, p) {
-  return combinations(n, x) * Math.pow(p, x) * Math.pow(1 - p, (n - x));
+  return combinations(n, x) * (p ** x) * ((1 - p) ** (n - x));
 }
 
 function compute([ratioB, ratioG], numChildren = 6, minNumOfBoys = 3) {
@@ -54,7 +54,7 @@ function parseAndCompute(input) {
 }
 
 function rounding(num, dp = 1) {
-  const f = Math.pow(10, dp);
+  const f = 10 ** dp;
   return Math.round(num * f) / f;
 }
 
