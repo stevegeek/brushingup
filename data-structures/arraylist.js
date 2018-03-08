@@ -19,8 +19,9 @@
 // index referencing)?
 
 // Note this implementation is *not* Array-like
-class ArrayList {
+class ArrayList extends Array {
   constructor(data = []) {
+    super();
     // Pre allocate twice as much storage
     this._init(data);
   }
@@ -34,7 +35,9 @@ class ArrayList {
   add(v, index) {
     const hasIndex = index !== undefined;
     if (hasIndex) {
-      this._checkBounds(index);
+      if (index > this.size) {
+        throw new Error('Out of bounds error');
+      }
     }
 
     this._insertValueAt({
@@ -116,6 +119,20 @@ class ArrayList {
    */
   get size() {
     return this.count;
+  }
+
+  /**
+   * Iterator for array
+   * @returns {IterableIterator<*[]>}
+   */
+  *[Symbol.iterator]() {
+    for (let i = 0; i < this.size; i++) {
+      yield [this.get(i), i];
+    }
+  }
+
+  toString() {
+    return '[' + this.map((v, i) => `${v} (${i})`).join(', ') + ']';
   }
 
   // 'private'
@@ -239,7 +256,7 @@ class ArrayList {
   }
 
   _sizeToNearestOfPowerOf2(s) {
-    return Math.pow(2, Math.ceil(Math.log2(s)) + 1);
+    return 2 ** (Math.ceil(Math.log2(s)) + 1);
   }
 
   // Check if index in bounds

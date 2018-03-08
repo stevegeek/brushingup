@@ -20,6 +20,11 @@ describe('ArrayList', () => {
     expect(() => arr.get(0)).toThrow();
   });
 
+  it('should allocate an array and push data', () => {
+    const arr = new ArrayList();
+    expect(arr.push(100).get(0)).toBe(100);
+  });
+
   it('should return size as number of actual elements', () => {
     expect(list.size).toBe(3);
   });
