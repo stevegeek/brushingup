@@ -15,25 +15,25 @@ describe('BinaryTree', () => {
   });
 
   it('should render tree in text', () => {
-    expect(tree.toString()).toEqual('\nNode(0, val: 10, {})\n' +
+    expect(tree.toString()).toEqual('\nNode0(val: 10, {})\n' +
       '\t| left\n' +
-      '\tNode(1, val: 6, {})\n' +
+      '\tNode1(val: 6, {})\n' +
       '\t\t| left\n' +
-      '\t\tNode(4, val: 5, {})\n' +
+      '\t\tNode4(val: 5, {})\n' +
       '\t\t\t| left~\n' +
       '\t\t\t| right~\n' +
       '\t\t| right\n' +
-      '\t\tNode(5, val: 8, {})\n' +
+      '\t\tNode5(val: 8, {})\n' +
       '\t\t\t| left\n' +
-      '\t\t\tNode(6, val: 7, {})\n' +
+      '\t\t\tNode6(val: 7, {})\n' +
       '\t\t\t\t| left~\n' +
       '\t\t\t\t| right~\n' +
       '\t\t\t| right~\n' +
       '\t| right\n' +
-      '\tNode(2, val: 11, {})\n' +
+      '\tNode2(val: 11, {})\n' +
       '\t\t| left~\n' +
       '\t\t| right\n' +
-      '\t\tNode(3, val: 12, {})\n' +
+      '\t\tNode3(val: 12, {})\n' +
       '\t\t\t| left~\n' +
       '\t\t\t| right~');
   });

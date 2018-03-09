@@ -49,7 +49,7 @@ class Node {
     const edges = [this.left, this.right].map((n, i) => {
       return `\t| ${i ? 'right' : 'left'}${n ? `${n.toString().replace(/(\r\n|\r|\n)/gm, '\n\t')}` : '~'}`;
     }).join('\n');
-    return `\nNode(${this.id}, val: ${this.val}, ${JSON.stringify(this.kv)})\n${edges}`;
+    return `\nNode${this.id}(val: ${this.val}, ${JSON.stringify(this.kv)})\n${edges}`;
   }
 }
 
@@ -173,30 +173,22 @@ class BinaryTree {
       if (!n) {
         return false;
       }
+      // If a leaf node
       if (!n.right && !n.left) {
-        if (n.parent.left === n) {
-          n.parent.addLeft();
-        } else {
-          n.parent.addRight();
-        }
+        this._moveNodeToParent(n, () => {});
         return true;
       }
+      // else if has right children
       if (n.right && !n.left) {
-        if (n.parent.left === n) {
-          n.parent.addLeft(n.right);
-        } else {
-          n.parent.addRight(n.right);
-        }
+        this._moveNodeToParent(n, (n) => n.right);
         return true;
       }
+      // else if has left children
       if (!n.right && n.left) {
-        if (n.parent.left === n) {
-          n.parent.addLeft(n.left);
-        } else {
-          n.parent.addRight(n.left);
-        }
+        this._moveNodeToParent(n, (n) => n.left);
         return true
       }
+      // otherwise has both children
       const succ = this._successor(n.val);
       if (succ) {
         succ.addLeft(n.left);
@@ -208,10 +200,18 @@ class BinaryTree {
         }
         return true;
       }
-
+      // otherwise is the root and is being removed
       this._setRoot();
       return true;
     });
+  }
+
+  _moveNodeToParent(n, p) {
+    if (n.parent.left === n) {
+      n.parent.addLeft(p(n));
+    } else {
+      n.parent.addRight(p(n));
+    }
   }
 
   /**

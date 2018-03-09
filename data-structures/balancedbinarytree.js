@@ -13,7 +13,7 @@ class AVLNode extends Node {
   }
 
   toString() {
-    return super.toString().replace(' val:', ` h:${this.height}, val:`);
+    return super.toString().replace('val:', `h:${this.height}, val:`);
   }
 }
 
@@ -26,7 +26,10 @@ class AVL extends BinaryTree {
   }
 
   /**
-   * Insert new value into tree
+   * Insert new value into tree.
+   *
+   * Note: on finding a node which needs rebalancing then we can stop as tree
+   * is balanced now.
    * @param v
    */
   insert(v) {
@@ -53,16 +56,96 @@ class AVL extends BinaryTree {
     );
   }
 
+  /**
+   * Remove item from the tree and rebalance
+   *
+   * Note: we need to continue rebalancing up to the root
+   */
+  remove(v) {
+    return this._find(this.root, v, (n) => {
+      if (!n) {
+        return false;
+      }
+
+      // If a leaf node
+      if (!n.right && !n.left) {
+        this._moveNodeToParent(n, () => {});
+        this._startRebalance(n.parent);
+        return true;
+      }
+      // else if has right children
+      if (n.right && !n.left) {
+        this._moveNodeToParent(n, (n) => n.right);
+        n.right.height = n.height;
+        this._startRebalance(n.parent);
+        return true;
+      }
+      // else if has left children
+      if (!n.right && n.left) {
+        this._moveNodeToParent(n, (n) => n.left);
+        n.left.height = n.height;
+        this._startRebalance(n.parent);
+        return true
+      }
+      // otherwise has both children
+
+      // Find largest node in left subtree of delted node attach to parent
+      const largest = this._findMaxInSubTree(n.left);
+      if (largest) {
+        if (n.parent) {
+          n.parent.addLeft(largest);
+        } else {
+          // At root so rewire it
+          this._setRoot(largest);
+        }
+        largest.addRight(n.right);
+        largest.height = n.height;
+        this._startRebalance(largest);
+
+        return true;
+      }
+
+      this._setRoot();
+      return true;
+    });
+  }
+
+  _startRebalance(curNode) {
+    const child = this._findPathChildren(curNode);
+    const grandchild = this._findPathChildren(child);
+    return this._rebalance(curNode, child, grandchild);
+  }
+
+  // When deleting we consider the nodes in the rotation as the children
+  // with max height
+  _findPathChildren(n) {
+    let l = n.left,
+      r = n.right;
+    if (l && r) {
+      return l.height >= r.height ? l : r;
+    } else if (l && !r) {
+      return l;
+    }
+    return r;
+  }
+
   // Rebalance AVL tree
   _rebalance(curNode, child, grandChild) {
     if (!curNode) {
       return;
     }
 
-    // Update height of node
-    if (curNode.height <= child.height) {
-      curNode.height++;
+    // If we call this with a leaf just go to parent
+    if (!child) {
+      child = curNode;
+      curNode = curNode.parent;
     }
+
+    // Update height of node
+    curNode.height = 1 + Math.max(
+      curNode.left ? curNode.left.height : -1,
+      curNode.right ? curNode.right.height : -1
+    );
 
     // check if left -> right have > 1 difference in height
     const hLeft = curNode.left ? curNode.left.height : 0;
