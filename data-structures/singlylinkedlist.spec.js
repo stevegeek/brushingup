@@ -15,6 +15,10 @@ describe('List', () => {
     );
   });
 
+  it('should get length', () => {
+    expect(list.length).toBe(3);
+  });
+
   it('should get last item', () => {
     expect(list.last).toBe(3);
     expect(emptyList.last).toBeUndefined();

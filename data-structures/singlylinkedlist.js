@@ -8,9 +8,9 @@
  * @property next {object?} next cell
  */
 class Cons {
-  constructor(v, next) {
+  constructor(v, kv) {
     this.val = v;
-    this.next = next;
+    this.kv = kv;
   }
 
   /**
@@ -35,10 +35,10 @@ class List {
    * @param values
    */
   constructor(values = []) {
+    this.length = 0;
     values.forEach((v) => {
       this.append(v);
     });
-
     // Ensure if you concat() a list it actually spreads like [...list] and thus
     // is flattened
     this[Symbol.isConcatSpreadable] = true;
@@ -73,13 +73,29 @@ class List {
   forEach(p) { this.map(p); }
 
   /**
+   * Find a value in the list -- O(n)
+   * @param needle
+   * @returns {*}
+   */
+  find(needle) {
+    for (const [c, i] of this) {
+      if (!c) continue;
+      if (c.val === needle) {
+        return c;
+      }
+    }
+  }
+
+  /**
    * Append a new cell O(n) in singly linked list with no tail reference
    * @param v
+   * @param kv {*} optional bag of kvs to store with v
    * @returns {Cons|*}
    */
-  append(v) {
+  append(v, kv) {
     if (typeof v === 'undefined') return;
-    const cell = new Cons(v);
+    const cell = new Cons(v, kv);
+    this.length++;
     if (!this.head){
       this.head = cell;
       return this.head;
@@ -120,6 +136,7 @@ class List {
         } else {
           prev.next = next;
         }
+        this.length--;
       }
       prev = curr;
       curr = next;
